@@ -1,0 +1,98 @@
+/* static/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d2d9deff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    margin-top: 50px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+main {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 500px;
+    padding: 0 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button:hover {
+    background-color: #3f8dac;
+}
+
+.result-message {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #a0b6b5;
+    border: 1px solid #b2d8b2;
+    border-radius: 4px;
+    color: rgb(16, 23, 24);
+    font-weight: bold;
+    text-align: center;
+}
+
+footer {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #777;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Responsive Layout */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    input[type="text"],
+    button {
+        font-size: 1rem;
+    }
+
+    .result-message {
+        font-size: 0.95rem;
+        padding: 12px;
+    }
+
+    main {
+        padding: 0 15px;
+    }
+}
