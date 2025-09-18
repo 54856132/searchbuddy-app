@@ -5,7 +5,7 @@ import os  # Added to access environment variables
 app = Flask(__name__)
 
 # Configure Gemini
-GEMINI_API_KEY = "AIzaSyC1wh9XvSPjC0ey6L_aXedWKt4_07vJLOo"
+GEMINI_API_KEY = os.getenv("AIzaSyC1wh9XvSPjC0ey6L_aXedWKt4_07vJLOo")  # Secure key access
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-2.5-pro")
 
