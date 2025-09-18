@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import google.generativeai as genai
+import os  # Added to access environment variables
 
 app = Flask(__name__)
 
@@ -9,7 +10,6 @@ genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-2.5-pro")
 
 def get_song_match_from_gemini(lyrics):
-    # prompt that asks for both song title and artist and it goes to  gemini
     prompt = (
         f"From these lyrics: '{lyrics}', identify the exact song title and artist name and please double check before giving your final answer. "
         "And if you are unsure, use your intelligency to give two or three possible matches. "
@@ -20,11 +20,9 @@ def get_song_match_from_gemini(lyrics):
         response = model.generate_content(prompt)
         result = response.text.strip()
 
-        # Validate response format
         if result and "by" in result.lower():
             return result
 
-        # Fallback re-prompt if artist is missing
         fallback_prompt = (
             f"Who sings the song with these lyrics: '{lyrics}'? Respond only with: 'Song Title by Artist Name'."
         )
@@ -44,7 +42,6 @@ def get_song_match_from_gemini(lyrics):
 def home():
     if request.method == "POST":
         user_lyrics = request.form.get("lyrics")
-        # Show loading message while processing
         loading = True
 
         match = get_song_match_from_gemini(user_lyrics.lower()) 
