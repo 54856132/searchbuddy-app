@@ -5,44 +5,52 @@
     <meta charset="UTF-8">
     <title>SearchBuddy</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
+    <!-- Header -->
     <header>
-        <h1>Welcome to SearchBuddy</h1> 
+        <h1>SearchBuddy</h1>
     </header>
 
+    <!-- Main Content -->
     <main>
+
         <!-- Search Form -->
         <form action="/" method="POST">
             <input type="text" name="lyrics" placeholder="Enter lyrics or keywords" required>
             <button type="submit">Search Song</button>
         </form>
 
+        <!-- Message -->
         {% if loading %}
-        <div class="result-message">
-            <em>Loading... please wait while we find the best match.</em>
-        </div>
+            <div class="result-message">
+                <em>Loading... please wait while we find the best match.</em>
+            </div>
         {% elif message %}
-        <div class="result-message">
-            {{ message }}
-        </div>
+            <div class="result-message">
+                {{ message }}
+            </div>
         {% endif %}
 
         <!-- Contact Section -->
-        <section style="margin-top: 40px; padding: 15px; background-color: #457193; border-radius: 8px;">
+        <section class="card">
             <h2>Contact & Feedback</h2>
             <p>
                 Found a wrong match? Have a suggestion? I'd love to hear from you.
                 You can reach me directly at:
             </p>
-            <p><strong>Email:</strong> <a href="mailto:dawnmasindi@06gmail.com">dawnmasindi@06gmail.com</a></p>
+            <p><strong>Email:</strong> 
+                <a href="mailto:dawnmasindi@06gmail.com">dawnmasindi@06gmail.com</a>
+            </p>
             <p>
                 Your feedback helps improve SearchBuddy for everyone. Whether it's a bug, a missed song, or a new feature idea—drop me a message anytime.
             </p>
         </section>
 
         <!-- Intro Section -->
-        <section style="margin-top: 40px; padding: 15px; background-color: #3c6d7d; border-radius: 8px;">
+        <section class="card">
             <h2>What is SearchBuddy?</h2>
             <p>
                 Ever had a lyric stuck in your head but couldn't remember the song? SearchBuddy helps you find songs based on lyrics.
@@ -55,8 +63,8 @@
             <p><strong>Note:</strong> This is an experimental tool. Some matches may be approximate or incorrect—especially for lesser-known tracks. Your feedback helps us improve!</p>
         </section>
 
-        <!-- Privacy Policy Section -->
-        <section style="margin-top: 40px; padding: 15px; background-color: #2f4f4f; color: #fff; border-radius: 8px;">
+        <!-- Privacy Section -->
+        <section class="card" style="background-color: #2f4f4f; color: #fff;">
             <h2>Privacy Policy</h2>
             <p><strong>Last updated:</strong> September 17, 2025</p>
             <p>
@@ -64,20 +72,23 @@
             </p>
             <p>
                 We use Google AdSense to display ads. AdSense may use cookies to personalize ads based on your interests. You can learn more and manage your ad settings at 
-                <a href="https://www.google.com/settings/ads" style="color: #ffd700;">Google Ads Settings</a>.
+                <a href="https://www.google.com/settings/ads" target="_blank">Google Ads Settings</a>.
             </p>
             <p>
                 We do not share your information with third parties. If you contact us via email, your message will be handled privately and not stored on our servers.
             </p>
             <p>
                 If you have questions about this policy, contact us at 
-                <a href="mailto:dawnmasindi@06gmail.com" style="color: #ffd700;">dawnmasindi@06gmail.com</a>.
+                <a href="mailto:dawnmasindi@06gmail.com">dawnmasindi@06gmail.com</a>.
             </p>
         </section>
+
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 SearchBuddy.</p>
+        <p>&copy; 2025 SearchBuddy. All rights reserved.</p>
     </footer>
+
 </body>
 </html>
