@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 import google.generativeai as genai
-import os  # Added to access environment variables
+import os  # Access environment variables
 
 app = Flask(__name__)
 
@@ -44,16 +44,17 @@ def home():
         user_lyrics = request.form.get("lyrics")
         loading = True
 
-        match = get_song_match_from_gemini(user_lyrics.lower()) 
+        match = get_song_match_from_gemini(user_lyrics.lower())
 
         if match:
             message = f"Match found: {match}"
         else:
-            message = f" No match found for: '{user_lyrics}'"
+            message = f"No match found for: '{user_lyrics}'"
 
         return render_template("index.html", message=message, loading=False)
 
     return render_template("index.html", loading=False)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 5000))  # Render sets this automatically
+    app.run(debug=True, host="0.0.0.0", port=port)
