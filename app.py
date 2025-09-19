@@ -70,7 +70,7 @@ def privacy():
 def serve_sw():
     return send_from_directory('.', 'sw.js')
 
-#  Serve Google Search Console verification file
+# Serve Google Search Console verification file
 @app.route('/google1234567890abcdef.html')  # Replace with your actual filename
 def serve_google_verification():
     return send_from_directory('.', 'google1234567890abcdef.html')
