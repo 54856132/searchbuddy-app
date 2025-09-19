@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About SearchBuddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <form action="/" method="POST">
+      <input type="text" name="lyrics" placeholder="Enter lyrics or keywords" required>
+      <button type="submit">Search</button>
+    </form>
+  </header>
+
+  <main>
+    <h1>What is SearchBuddy?</h1>
+    <p>SearchBuddy helps you find songs based on lyrics. Just type in a line or phrase, and we’ll return the closest match—even if the lyrics are vague or incomplete.</p>
+    <p>It works best with popular songs, but we’re constantly improving accuracy for all genres and regions.</p>
+    <p><strong>Note:</strong> This is an experimental tool. Some matches may be approximate or incorrect—especially for lesser-known tracks. Your feedback helps us improve!</p>
+  </main>
+
+  <footer>
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/contact">Contact</a>
+    <p>&copy; 2025 SearchBuddy. All rights reserved.</p>
+  </footer>
+</body>
+</html>

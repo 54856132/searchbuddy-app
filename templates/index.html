@@ -2,92 +2,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>SearchBuddy</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Link to external CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <title>SearchBuddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #333;
+      text-align: center;
+    }
+    header {
+      padding: 2rem 1rem;
+    }
+    input[type="text"] {
+      width: 90%;
+      max-width: 600px;
+      padding: 1rem;
+      font-size: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .result-message {
+      margin-top: 2rem;
+      font-style: italic;
+    }
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      background: #eee;
+      font-size: 0.9rem;
+    }
+    footer a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <h1>Welcome to SearchBuddy</h1>
-    </header>
+  <header>
+    <h1>SearchBuddy</h1>
+    <form action="/" method="POST">
+      <input type="text" name="lyrics" placeholder="Enter lyrics or keywords" required>
+      <br>
+      <button type="submit">Search</button>
+    </form>
+  </header>
 
-    <!-- Main content -->
-    <main>
+  <main>
+    {% if loading %}
+      <div class="result-message">
+        <em>Loading... please wait while we find the best match.</em>
+      </div>
+    {% elif message %}
+      <div class="result-message">
+        {{ message }}
+      </div>
+    {% endif %}
+  </main>
 
-        <!-- Google-style search form -->
-        <form class="google-style-search" action="/" method="POST">
-            <input type="text" name="lyrics" placeholder="Enter lyrics or keywords" required>
-            <button type="submit">Search</button>
-        </form>
-
-        <!-- Result message -->
-        {% if loading %}
-        <div class="result-message">
-            <em>Loading... please wait while we find the best match.</em>
-        </div>
-        {% elif message %}
-        <div class="result-message">
-            {{ message }}
-        </div>
-        {% endif %}
-
-        <!-- Contact Section -->
-        <section class="info-section">
-            <h2>Contact & Feedback</h2>
-            <p>
-                Found a wrong match? Have a suggestion? I'd love to hear from you.
-                You can reach me directly at:
-            </p>
-            <p><strong>Email:</strong> <a href="mailto:dawnmasindi@06gmail.com">dawnmasindi@06gmail.com</a></p>
-            <p>
-                Your feedback helps improve SearchBuddy for everyone. Whether it's a bug, a missed song, or a new feature idea—drop me a message anytime.
-            </p>
-        </section>
-
-        <!-- Intro Section -->
-        <section class="info-section">
-            <h2>What is SearchBuddy?</h2>
-            <p>
-                Ever had a lyric stuck in your head but couldn't remember the song? SearchBuddy helps you find songs based on lyrics.
-                Just type in a line or phrase from any song, and we'll return the closest match using advanced search systems.
-            </p>
-            <p>
-                We intelligently guess the most likely track—even if the lyrics are vague or incomplete.
-                It works best with popular songs, but we're constantly improving accuracy for all genres and regions.
-            </p>
-            <p><strong>Note:</strong> This is an experimental tool. Some matches may be approximate or incorrect—especially for lesser-known tracks. Your feedback helps us improve!</p>
-        </section>
-
-        <!-- Privacy Policy Section -->
-        <section class="info-section">
-            <h2>Privacy Policy</h2>
-            <p><strong>Last updated:</strong> September 17, 2025</p>
-            <p>
-                SearchBuddy respects your privacy. We do not collect or store any personal data from users. When you enter lyrics, they are processed temporarily to generate song matches using AI, and are not saved or shared.
-            </p>
-            <p>
-                We use Google AdSense to display ads. AdSense may use cookies to personalize ads based on your interests. You can learn more and manage your ad settings at 
-                <a href="https://www.google.com/settings/ads" target="_blank">Google Ads Settings</a>.
-            </p>
-            <p>
-                We do not share your information with third parties. If you contact us via email, your message will be handled privately and not stored on our servers.
-            </p>
-            <p>
-                If you have questions about this policy, contact us at 
-                <a href="mailto:dawnmasindi@06gmail.com">dawnmasindi@06gmail.com</a>.
-            </p>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 SearchBuddy. All rights reserved.</p>
-    </footer>
+  <footer>
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/contact">Contact</a>
+    <p>&copy; 2025 SearchBuddy. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>

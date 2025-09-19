@@ -42,8 +42,6 @@ def get_song_match_from_gemini(lyrics):
 def home():
     if request.method == "POST":
         user_lyrics = request.form.get("lyrics")
-        loading = True
-
         match = get_song_match_from_gemini(user_lyrics.lower())
 
         if match:
@@ -54,6 +52,18 @@ def home():
         return render_template("index.html", message=message, loading=False)
 
     return render_template("index.html", loading=False)
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@app.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))  # Render sets this automatically
