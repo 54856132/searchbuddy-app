@@ -70,6 +70,11 @@ def privacy():
 def serve_sw():
     return send_from_directory('.', 'sw.js')
 
+#  Serve Google Search Console verification file
+@app.route('/google1234567890abcdef.html')  # Replace with your actual filename
+def serve_google_verification():
+    return send_from_directory('.', 'google1234567890abcdef.html')
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))  # Render sets this automatically
     app.run(debug=True, host="0.0.0.0", port=port)
