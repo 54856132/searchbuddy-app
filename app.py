@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
 import google.generativeai as genai
 import os  # Access environment variables
 
@@ -64,6 +64,11 @@ def contact():
 @app.route("/privacy")
 def privacy():
     return render_template("privacy.html")
+
+# Serve sw.js for PropellerAds verification
+@app.route('/sw.js')
+def serve_sw():
+    return send_from_directory('.', 'sw.js')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))  # Render sets this automatically
