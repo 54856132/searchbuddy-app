@@ -76,3 +76,16 @@ footer a {
   margin: 0 1rem;
   text-decoration: none;
 }
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.note {
+  background-color: #fff3e0;
+  border-left: 4px solid #ff5722;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 6px;
+}

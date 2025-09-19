@@ -8,24 +8,30 @@
 </head>
 <body>
   <header>
-    <form action="/" method="POST">
-      <input type="text" name="lyrics" placeholder="Enter lyrics or keywords" required>
-      <button type="submit">Search</button>
-    </form>
+    <div class="container">
+      <form action="/" method="POST">
+        <input type="text" name="lyrics" placeholder="Enter lyrics or keywords" required>
+        <button type="submit">Search</button>
+      </form>
+    </div>
   </header>
 
-  <main>
+  <main class="container">
     <h1>What is SearchBuddy?</h1>
     <p>SearchBuddy helps you find songs based on lyrics. Just type in a line or phrase, and we’ll return the closest match—even if the lyrics are vague or incomplete.</p>
     <p>It works best with popular songs, but we’re constantly improving accuracy for all genres and regions.</p>
-    <p><strong>Note:</strong> This is an experimental tool. Some matches may be approximate or incorrect—especially for lesser-known tracks. Your feedback helps us improve!</p>
+    <div class="note">
+      <strong>Note:</strong> This is an experimental tool. Some matches may be approximate or incorrect—especially for lesser-known tracks. Your feedback helps us improve!
+    </div>
   </main>
 
   <footer>
-    <a href="/about">About</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/contact">Contact</a>
-    <p>&copy; 2025 SearchBuddy. All rights reserved.</p>
+    <div class="container">
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
+      <p>&copy; 2025 SearchBuddy. All rights reserved.</p>
+    </div>
   </footer>
 </body>
 </html>
