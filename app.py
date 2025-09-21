@@ -74,7 +74,11 @@ def serve_sw():
 @app.route('/google1234567890abcdef.html')  # Replace with your actual filename
 def serve_google_verification():
     return send_from_directory('.', 'google1234567890abcdef.html')
-
+# robots.txt file route
+@app.route('/robots.txt')
+def serve_robots():
+    return send_from_directory('.', 'robots.txt')
+# sitemap.xml file route
 @app.route('/sitemap.xml')
 def serve_sitemap():
     return send_from_directory('.', 'sitemap.xml')
