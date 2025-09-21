@@ -75,6 +75,10 @@ def serve_sw():
 def serve_google_verification():
     return send_from_directory('.', 'google1234567890abcdef.html')
 
+@app.route('/sitemap.xml')
+def serve_sitemap():
+    return send_from_directory('.', 'sitemap.xml')
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))  # Render sets this automatically
     app.run(debug=True, host="0.0.0.0", port=port)
