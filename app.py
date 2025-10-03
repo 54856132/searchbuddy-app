@@ -1,13 +1,25 @@
 from flask import Flask, request, render_template, send_from_directory
 import google.generativeai as genai
-import os  # Access environment variables
+import os
+import json
 
 app = Flask(__name__)
 
 # Configure Gemini
-GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY")  # Secure key access
+GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-2.5-pro")
+
+# Load override database
+with open('override_db.json', 'r') as f:
+    override_db = json.load(f)
+
+def search_local_override(lyrics_input):
+    normalized_input = lyrics_input.lower().strip()
+    for entry in override_db:
+        if normalized_input in entry['lyrics_snippet'].lower():
+            return f"{entry['correct_title']} by {entry['correct_artist']}"
+    return None
 
 def get_song_match_from_gemini(lyrics):
     prompt = (
@@ -42,7 +54,14 @@ def get_song_match_from_gemini(lyrics):
 def home():
     if request.method == "POST":
         user_lyrics = request.form.get("lyrics")
-        match = get_song_match_from_gemini(user_lyrics.lower())
+        lyrics_input = user_lyrics.lower().strip()
+
+        # First check override DB
+        match = search_local_override(lyrics_input)
+
+        # If no override match, use Gemini
+        if not match:
+            match = get_song_match_from_gemini(lyrics_input)
 
         if match:
             message = f"Match found: {match}"
@@ -65,24 +84,22 @@ def contact():
 def privacy():
     return render_template("privacy.html")
 
-# Serve sw.js for PropellerAds verification
 @app.route('/sw.js')
 def serve_sw():
     return send_from_directory('.', 'sw.js')
 
-# Serve Google Search Console verification file
 @app.route('/google1234567890abcdef.html')  # Replace with your actual filename
 def serve_google_verification():
     return send_from_directory('.', 'google1234567890abcdef.html')
-# robots.txt file route
+
 @app.route('/robots.txt')
 def serve_robots():
     return send_from_directory('.', 'robots.txt')
-# sitemap.xml file route
+
 @app.route('/sitemap.xml')
 def serve_sitemap():
     return send_from_directory('.', 'sitemap.xml')
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Render sets this automatically
+    port = int(os.environ.get("PORT", 5000))
     app.run(debug=True, host="0.0.0.0", port=port)
