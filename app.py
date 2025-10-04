@@ -14,10 +14,12 @@ model = genai.GenerativeModel("gemini-2.5-pro")
 with open('override_db.json', 'r') as f:
     override_db = json.load(f)
 
+# Improved override matching logic
 def search_local_override(lyrics_input):
     normalized_input = lyrics_input.lower().strip()
     for entry in override_db:
-        if normalized_input in entry['lyrics_snippet'].lower():
+        snippet = entry['lyrics_snippet'].lower().strip()
+        if snippet in normalized_input or normalized_input in snippet:
             return f"{entry['correct_title']} by {entry['correct_artist']}"
     return None
 
