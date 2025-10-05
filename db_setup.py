@@ -75,6 +75,5 @@ insert_song(
     "This love",
     "I think they call this love",
     "Elliot James Raey"
-
 )
 print("Database created: override.db and lyrics table initialized.")
