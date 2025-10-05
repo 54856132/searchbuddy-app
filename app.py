@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, send_from_directory
 import google.generativeai as genai
+import sqlite3
 import os
-import json
 
 app = Flask(__name__)
 
@@ -10,19 +10,26 @@ GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-2.5-pro")
 
-# Load override database
-with open('override_db.json', 'r') as f:
-    override_db = json.load(f)
-
-# Improved override matching logic
+# SQL override matching logic
 def search_local_override(lyrics_input):
     normalized_input = lyrics_input.lower().strip()
-    for entry in override_db:
-        snippet = entry['lyrics_snippet'].lower().strip()
-        if snippet in normalized_input or normalized_input in snippet:
-            return f"{entry['correct_title']} by {entry['correct_artist']}"
+
+    conn = sqlite3.connect('override.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+    SELECT correct_title, correct_artist
+    FROM override_lyrics
+    WHERE LOWER(full_lyrics) LIKE '%' || ? || '%'
+    LIMIT 1
+    ''', (normalized_input,))
+    result = cursor.fetchone()
+    conn.close()
+
+    if result:
+        return f"{result[0]} by {result[1]}"
     return None
 
+# Gemini fallback
 def get_song_match_from_gemini(lyrics):
     prompt = (
         f"From these lyrics: '{lyrics}', identify the exact song title and artist name and please double check before giving your final answer. "
@@ -31,12 +38,13 @@ def get_song_match_from_gemini(lyrics):
     )
 
     try:
+        # prompting Gemini with the lyrics we got from user
         response = model.generate_content(prompt)
         result = response.text.strip()
 
         if result and "by" in result.lower():
             return result
-
+        # Fallback prompt if the first response is not satisfactory
         fallback_prompt = (
             f"Who sings the song with these lyrics: '{lyrics}'? Respond only with: 'Song Title by Artist Name'."
         )
@@ -55,10 +63,10 @@ def get_song_match_from_gemini(lyrics):
 @app.route('/', methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        user_lyrics = request.form.get("lyrics")
-        lyrics_input = user_lyrics.lower().strip()
+        user_lyrics = request.form.get("lyrics") # get lyrics from user input
+        lyrics_input = user_lyrics.lower().strip() # normalize input
 
-        # First check override DB
+        # First check SQL override DB
         match = search_local_override(lyrics_input)
 
         # If no override match, use Gemini
